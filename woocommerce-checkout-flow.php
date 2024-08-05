@@ -5,7 +5,7 @@
  * Description:          Plugin para WordPress e WooCommerce que ajuda na usabilidade de criação de contas dos usuários no checkout.
  * Author:               Flow Digital Creative Ecommerce
  * Author URI:           https://goflow.digital
- * Version:              1.0.1
+ * Version:              1.0.2
  * License: 						 GPLv3
  * License URI: 				 http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:          wc-checkout-flow

@@ -7,10 +7,10 @@ use function FlowDigital\WC_Checkout_Flow\functions\config_get;
 class Admin_Page {
 	public function __construct() {
 		// Create the section beneath the advanced tab
-		add_filter( 'woocommerce_get_sections_advanced', array( __CLASS__, 'add_section' ) );
+		add_filter( 'woocommerce_get_sections_advanced', array( $this, 'add_section' ) );
 
 		// Add settings to the specific section we created before
-		add_filter( 'woocommerce_get_settings_advanced', array( __CLASS__, 'get_settings' ), 10, 2 );
+		add_filter( 'woocommerce_get_settings_advanced', array( $this, 'get_settings' ), 10, 2 );
 
 		// Add action links
 		add_filter( 'plugin_action_links_' . plugin_basename( config_get( 'MAIN_FILE' ) ), array(

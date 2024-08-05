@@ -10,7 +10,8 @@ class Auth_Form {
 
 	public function add_hooks() {
 		$this->add_action( 'wp', 'validate_page', 0 );
-		$this->add_action( 'woocommerce_before_checkout_form', 'show_auth_form', 0 );
+		$this->add_action( 'woocommerce_before_checkout_form', 'remove_hooks', 0 );
+		$this->add_action( 'woocommerce_before_checkout_form', 'show_auth_form', 10 );
 		$this->add_filter( 'woocommerce_checkout_fields', 'remove_checkout_fields', \PHP_INT_MAX );
 		$this->add_filter( 'body_class', 'add_body_class' );
 	}
@@ -29,17 +30,19 @@ class Auth_Form {
 		define( 'WC_CHECKOUT_FLOW_AUTH', true );
 	}
 
-	public function show_auth_form() {
-		if ( ! defined( 'WC_CHECKOUT_FLOW_AUTH' ) ) {
-			return;
-		}
-
+	public function remove_hooks() {
 		\remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
 		\remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 		\remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 		\remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 		\remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 		\remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
+	}
+
+	public function show_auth_form() {
+		if ( ! defined( 'WC_CHECKOUT_FLOW_AUTH' ) ) {
+			return;
+		}
 
 		$this->print_css();
 		$this->print_form();
